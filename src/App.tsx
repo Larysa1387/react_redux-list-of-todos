@@ -27,7 +27,7 @@ export const App = () => {
         dispatch(actions.setLoading(false));
       })
       .finally(() => dispatch(actions.setLoading(false)));
-  });
+  }, [dispatch]);
 
   return (
     <>

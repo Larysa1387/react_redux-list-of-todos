@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setCurrentTodo } from '../../features/currentTodo';
-import { selectFilteredTodos } from '../../features/todos';
+// import { selectFilteredTodos } from '../../features/todos';
 
 export const TodoList: React.FC = () => {
   const { error } = useAppSelector(state => state.todos);
@@ -11,6 +11,7 @@ export const TodoList: React.FC = () => {
   const status = selector.filter.status;
   const query = selector.filter.query;
   const todos = selector.todos.todos;
+  const selectedTodo = selector.currentTodo;
 
   let visibleTodos = todos;
 
@@ -25,7 +26,7 @@ export const TodoList: React.FC = () => {
   }
 
   if(query) {
-    visibleTodos = visibleTodos.filter(todo => todo.title.includes(query));
+    visibleTodos = visibleTodos.filter(todo => todo.title.toLowerCase().includes(query.toLowerCase()));
   }
 
 
@@ -85,7 +86,7 @@ export const TodoList: React.FC = () => {
                   <span className="icon">
                     <i
                       className={
-                        todo.completed ? 'far fa-eye-slash' : 'far fa-eye'
+                        selectedTodo && selectedTodo.id === todo.id ? 'far fa-eye-slash' : 'far fa-eye'
                       }
                     />
                   </span>
