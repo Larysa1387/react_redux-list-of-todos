@@ -7,32 +7,36 @@ export const TodoList: React.FC = () => {
   const { error } = useAppSelector(state => state.todos);
   // const todos = selectFilteredTodos(useAppSelector(state => state));
   const dispatch = useAppDispatch();
-  const {status, query} = useAppSelector(state => state.filter);
+  const { status, query } = useAppSelector(state => state.filter);
   const todos = useAppSelector(state => state.todos.todos);
   const selectedTodo = useAppSelector(state => state.currentTodo);
 
   let visibleTodos = todos;
 
-  if(status !== 'all') {
+  if (status !== 'all') {
     visibleTodos = visibleTodos.filter(todo => {
-      if(status === 'active') {
+      if (status === 'active') {
         return !todo.completed;
       } else {
         return todo.completed;
       }
-    })
+    });
   }
 
-  if(query) {
-    visibleTodos = visibleTodos.filter(todo => todo.title.toLowerCase().includes(query.toLowerCase()));
+  if (query) {
+    visibleTodos = visibleTodos.filter(todo =>
+      todo.title.toLowerCase().includes(query.toLowerCase()),
+    );
   }
-
 
   return (
     <>
-      {(error || visibleTodos.length === 0) && (<p className="notification is-warning">
-        There are no todos matching current filter criteria
-      </p>)}
+      {error && <p>{error}</p>}
+      {visibleTodos.length === 0 && (
+        <p className="notification is-warning">
+          There are no todos matching current filter criteria
+        </p>
+      )}
 
       <table className="table is-narrow is-fullwidth">
         <thead>
@@ -84,7 +88,9 @@ export const TodoList: React.FC = () => {
                   <span className="icon">
                     <i
                       className={
-                        selectedTodo && selectedTodo.id === todo.id ? 'far fa-eye-slash' : 'far fa-eye'
+                        selectedTodo && selectedTodo.id === todo.id
+                          ? 'far fa-eye-slash'
+                          : 'far fa-eye'
                       }
                     />
                   </span>
