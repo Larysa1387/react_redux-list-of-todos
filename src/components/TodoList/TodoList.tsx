@@ -7,11 +7,9 @@ export const TodoList: React.FC = () => {
   const { error } = useAppSelector(state => state.todos);
   // const todos = selectFilteredTodos(useAppSelector(state => state));
   const dispatch = useAppDispatch();
-  const selector = useAppSelector(state => state);
-  const status = selector.filter.status;
-  const query = selector.filter.query;
-  const todos = selector.todos.todos;
-  const selectedTodo = selector.currentTodo;
+  const {status, query} = useAppSelector(state => state.filter);
+  const todos = useAppSelector(state => state.todos.todos);
+  const selectedTodo = useAppSelector(state => state.currentTodo);
 
   let visibleTodos = todos;
 

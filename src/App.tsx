@@ -24,7 +24,6 @@ export const App = () => {
       })
       .catch(error => {
         dispatch(actions.setError(error.message));
-        dispatch(actions.setLoading(false));
       })
       .finally(() => dispatch(actions.setLoading(false)));
   }, [dispatch]);
