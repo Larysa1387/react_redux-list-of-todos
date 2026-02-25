@@ -32,7 +32,7 @@ export const TodoList: React.FC = () => {
 
   return (
     <>
-      {error && (<p className="notification is-warning">
+      {(error || visibleTodos.length === 0) && (<p className="notification is-warning">
         There are no todos matching current filter criteria
       </p>)}
 
